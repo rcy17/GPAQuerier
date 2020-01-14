@@ -2,6 +2,7 @@ import requests  # to visit url
 import json
 from bs4 import BeautifulSoup
 import os
+from getpass import getpass
 
 
 '''
@@ -46,7 +47,7 @@ def login(first=True):
     if first:
         # login first
         data['userName'] = input("please input your username:")
-        data['password'] = input("please input your password:")
+        data['password'] = getpass("please input your password:")
         with open('./cache/account', 'w', encoding='utf-8') as fp:
             json.dump(data, fp)
     else:
