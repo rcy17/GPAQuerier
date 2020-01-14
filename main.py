@@ -22,6 +22,8 @@ def report_query(log):
     log = '{}: {}'.format(time_str(), log)
     if PRINT_LOG:
         print(log)
+    if '更' not in log:
+        return False
     try:
         with open('./cache/account', 'r', encoding='utf-8') as fp:
             data = load(fp)
