@@ -31,8 +31,8 @@ def report_query(log):
         sender = data['userName'] + suffix
         if send_to_self:
             receiver = sender
-        # try 3 times
-        times = 5
+        # try 20 times
+        times = 20
         for i in range(times):
             try:
                 with SMTP('smtp.tsinghua.edu.cn') as s:
@@ -49,11 +49,12 @@ def report_query(log):
                 break
             except Exception as e:
                 if i < times - 1:
+                    time.sleep(0.001)
                     continue
                 else:
                     raise e
     except Exception as e:
-        print('Error:', e)
+        print('Send email error:', e)
         return False
     return True
 
