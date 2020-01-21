@@ -31,30 +31,36 @@ def report_query(log):
         sender = data['userName'] + suffix
         if send_to_self:
             receiver = sender
-        # try 20 times
-        times = 20
+        # try several times
+        times = 10
+        msg = EmailMessage()
+        msg.set_content(log)
+        msg['From'] = sender
+        msg['To'] = receiver
+        msg['Subject'] = 'GPA Querier'
         for i in range(times):
             try:
                 with SMTP('smtp.tsinghua.edu.cn') as s:
+                    # if some error occurs, try to uncomment next line to get more information
+                    # s.set_debuglevel(1)
+                    time.sleep(0.01)
                     s.ehlo()
+                    time.sleep(0.01)
                     s.starttls()
+                    time.sleep(0.01)
                     s.login(sender, data['password'])
-                    msg = EmailMessage()
-                    msg.set_content(log)
-                    msg['From'] = sender
-                    msg['To'] = receiver
-                    msg['Subject'] = 'GPA Querier'
+                    time.sleep(0.01)
                     s.send_message(msg)
-                    print('send email successfully!')
                 break
             except Exception as e:
                 if i < times - 1:
+                    print('Failed times:', i + 1)
                     time.sleep(0.001)
                     continue
                 else:
                     raise e
     except Exception as e:
-        print('Send email error:', e)
+        print('Send email failed! Error:', e)
         return False
     return True
 
