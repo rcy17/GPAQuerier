@@ -93,7 +93,8 @@ def query(gpa_save, credits_save, cookie_jxgl, cookie_zhjw, cnt=0):
         return
 
     try:
-        gpa_save, flag, query_log = report.query(cookie_jxgl, gpa_save)
+        # gpa_save, flag, query_log = report.query(cookie_jxgl, gpa_save)
+        gpa_save, flag, query_log = None, None, None
         credits_save, flag, check_log = report.check(cookie_zhjw, credits_save)
     except Exception as e:
         print(e)
