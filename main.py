@@ -78,9 +78,10 @@ def start_query(cnt=0):
         print(e)
         print('轮询系统登录失败!')
         return start_query(cnt)
-    gpa_save, flag, query_log = report.query(cookie_jxgl, None)
+    gpa_save, flag, query_log = None, None, None # report.query(cookie_jxgl, None)
     credits_save, flag, check_log = report.check(cookie_zhjw, None)
-    if '失败' in query_log or '失败' in check_log:
+    # if '失败' in query_log or '失败' in check_log:
+    if '失败' in check_log:
         print('轮询系统第{}次启动失败！'.format(cnt))
         return start_query(cnt + 1)
     else:
